@@ -1,0 +1,438 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kings Printer Dashboard</title>
+
+<!-- Feather Icons -->
+<script src="https://unpkg.com/feather-icons"></script>
+
+<style>
+:root{
+  --sidebar:#000000;
+  --sidebar-light:#161b22;
+  --text:#e6edf3;
+  --primary:#ef4444;
+  --primary-light:#f87171;
+  --radius:12px;
+  font-family:Inter, system-ui;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#f8fafc;
+  /* display:flex; */
+  min-height:100vh;
+  color:#111827;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:230px;
+  background:var(--sidebar);
+  color:var(--text);
+  padding:22px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  border-right:1px solid #1f2937;
+}
+
+.brand{
+  font-size:22px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:16px;
+  color:var(--primary-light);
+}
+
+.menu-item{
+  padding:12px 12px;
+  background:#111;
+  border-radius:var(--radius);
+  cursor:pointer;
+  color:#cbd5e1;
+  font-size:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border:1px solid #ef4444;
+  transition:0.2s;
+}
+
+.menu-item:hover{background:#ef4444;color:white;}
+.active{background:#ef4444;color:white;font-weight:700;}
+
+.menu-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menu-left i{
+  width:18px;
+  height:18px;
+  stroke-width:2;
+}
+
+/* SUBMENU */
+.submenu{
+  display:none;
+  margin-left:14px;
+}
+.submenu div{
+  padding:8px 10px;
+  margin-top:4px;
+  color:#d4d7dd;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+}
+.submenu div:hover{
+  background:#1f2937;
+  color:var(--primary-light);
+}
+
+/* HEADER */
+header{
+  margin-left:230px;
+  width:calc(100% - 230px);
+  background:white;
+  padding:16px 24px;
+  box-shadow:0 2px 4px rgba(0,0,0,0.05);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:fixed;
+  top:0;
+  z-index:20;
+}
+
+.badge{
+  position:absolute;
+  top:-6px;
+  right:-10px;
+  background:#ef4444;
+  color:white;
+  font-size:10px;
+  padding:2px 6px;
+  border-radius:50%;
+}
+
+/* MAIN */
+main{
+  margin-left:230px;
+  padding:110px 40px 30px; /* left/right gap थोड़ा बढ़ा */
+}
+
+h1{font-size:26px;margin-bottom:20px;color:#111827}
+
+/* .grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+} */
+.col-3{grid-column:span 3}
+.col-6{grid-column:span 6}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:var(--radius);
+  border:1px solid #e5e7eb;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.card h3{margin-bottom:8px;color:#0f172a}
+.card p{font-size:22px;font-weight:700;color:#334155}
+
+button{
+  background:var(--primary);
+  color:white;
+  padding:12px 16px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+}
+button:hover{background:var(--primary-light);}
+
+input{
+  width:100%;
+  padding:10px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="brand">Kings Printer</div>
+
+  <div class="menu-item active">
+    <div class="menu-left"><i data-feather="home"></i> Dashboard</div>
+  </div>
+
+  <div class="menu-item" onclick="toggleMenu('products')">
+    <div class="menu-left"><i data-feather="package"></i> Products</div>
+    <span>▼</span>
+  </div>
+  <div class="submenu" id="products">
+    <div>All Products</div>
+    <div>Add Product</div>
+    <div>Categories</div>
+  </div>
+
+  <div class="menu-item" onclick="toggleMenu('orders')">
+    <div class="menu-left"><i data-feather="file-text"></i> Orders</div>
+    <span>▼</span>
+  </div>
+  <div class="submenu" id="orders">
+    <div>All Orders</div>
+    <div>Pending Orders</div>
+    <div>Completed Orders</div>
+  </div>
+
+  <div class="menu-item" onclick="toggleMenu('users')">
+    <div class="menu-left"><i data-feather="users"></i> Users</div>
+    <span>▼</span>
+  </div>
+  <div class="submenu" id="users">
+    <div>All Users</div>
+    <div>Add User</div>
+    <div>User Roles</div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-left"><i data-feather="settings"></i> Settings</div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-left"><i data-feather="lock"></i> Logout</div>
+  </div>
+</div>
+
+
+<!-- HEADER -->
+<header>
+  <div style="display:flex;align-items:center;gap:16px;width:100%">
+    <div style="font-weight:700;font-size:20px;color:#ef4444;">Kings Printer</div>
+    <input type="text" placeholder="Search..."
+      style="padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;width:320px;font-size:14px;" />
+  </div>
+
+  <div style="display:flex;align-items:center;gap:18px;font-size:18px;color:#374151;">
+    <span style="cursor:pointer;"><i data-feather="maximize-2"></i></span>
+    <span style="cursor:pointer;"><i data-feather="moon"></i></span>
+
+    <span style="position:relative;cursor:pointer;">
+      <i data-feather="bell"></i>
+      <span class="badge">7</span>
+    </span>
+
+    <span style="position:relative;cursor:pointer;">
+      <i data-feather="message-circle"></i>
+      <span class="badge">5</span>
+    </span>
+
+    <div style="display:flex;align-items:center;gap:8px;">
+      <img src="https://i.pravatar.cc/40"
+           style="width:36px;height:36px;border-radius:50%;object-fit:cover" />
+      <div style="font-size:14px;line-height:16px;">
+        <div style="font-weight:600;color:#111827;">Saurabh</div>
+        <div style="font-size:12px;color:#6b7280;">Admin</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- MAIN CONTENT -->
+<main>
+
+  <h1>Add New Entry</h1>
+
+  <div class="form-card">
+    <form>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Full Name</label>
+          <input type="text" placeholder="Enter full name">
+        </div>
+
+        <div class="form-group">
+          <label>Email Address</label>
+          <input type="text" placeholder="Enter email">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Mobile Number</label>
+          <input type="text" placeholder="Enter mobile number">
+        </div>
+
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" placeholder="Enter city">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>State</label>
+          <input type="text" placeholder="Enter state">
+        </div>
+
+        <div class="form-group">
+          <label>Address</label>
+          <input type="text" placeholder="Enter full address">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Pincode</label>
+          <input type="text" placeholder="Enter pincode">
+        </div>
+
+        <div class="form-group">
+          <label>GST Number</label>
+          <input type="text" placeholder="Enter GST number">
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="form-group">
+          <label>Company Name</label>
+          <input type="text" placeholder="Enter company name">
+        </div>
+
+        <div class="form-group">
+          <label>Website URL</label>
+          <input type="text" placeholder="Enter website URL">
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-top:20px;">
+        <label>Upload Document</label>
+        <input type="file">
+      </div>
+
+      <button type="submit">Submit Form</button>
+
+    </form>
+  </div>
+
+
+  
+
+</main>
+
+
+<script>
+
+// ACCORDION SUBMENU — only one open at a time
+function toggleMenu(id){
+    const allMenus = document.querySelectorAll(".submenu");
+
+    allMenus.forEach(menu => {
+        if(menu.id !== id){
+            menu.style.display = "none";
+        }
+    });
+
+    const current = document.getElementById(id);
+    current.style.display = current.style.display === "block" ? "none" : "block";
+}
+
+// Load icons
+feather.replace();
+
+</script>
+
+</body>
+</html>
+<style>
+    /* Two column row */
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.form-card{
+  background:white;
+  padding:30px;
+  width:100%;
+  border-radius:16px;
+  border:1px solid #e5e7eb;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+.form-group input{
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:14px;
+  transition:0.2s;
+  background:#f9fafb;
+}
+
+.form-group input:focus{
+  border-color:#ef4444;
+  outline:none;
+  box-shadow:0 0 0 3px rgba(239,68,68,0.2);
+}
+
+form button{
+  width:100%;
+  margin-top:16px;
+  padding:14px;
+  background:#ef4444;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+form button:hover{
+  background:#f87171;
+}
+
+/* Mobile responsive */
+@media(max-width:768px){
+  .row{
+    grid-template-columns:1fr;
+  }
+}
+
+</style>

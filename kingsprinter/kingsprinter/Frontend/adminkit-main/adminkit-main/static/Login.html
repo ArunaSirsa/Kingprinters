@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="hi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Login - Admin Panel</title>
+  <style>
+    :root{
+      --bg:#0b1120;
+      --card:#111c32;
+      --accent:#6ee7b7;
+      --accent2:#60a5fa;
+      --muted:#a1acc9;
+      --radius:14px;
+      --shadow:0 10px 30px rgba(0,0,0,0.45);
+      font-family:Inter, system-ui;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      min-height:100vh;
+      background:linear-gradient(135deg, #0b1120, #041024);
+      display:flex;align-items:center;justify-content:center;
+      padding:20px;color:#e9eef9;
+    }
+
+    .wrap{
+      width:100%;max-width:420px;
+      background:var(--card);
+      padding:40px 34px;
+      border-radius:var(--radius);
+      box-shadow:var(--shadow);
+      animation:fadeIn .7s ease both;
+    }
+
+    @keyframes fadeIn{
+      from{opacity:0;transform:translateY(12px)}
+      to{opacity:1;transform:translateY(0)}
+    }
+
+    .logo{
+      width:70px;height:70px;background:linear-gradient(135deg,var(--accent),var(--accent2));
+      border-radius:18px;margin:0 auto 16px;
+      display:flex;align-items:center;justify-content:center;
+      font-size:26px;font-weight:700;color:#0d2530;
+    }
+
+    h2{text-align:center;margin-bottom:6px;font-weight:700}
+    p{text-align:center;color:var(--muted);font-size:14px;margin-bottom:28px}
+
+    label{display:block;margin-bottom:6px;font-size:14px;color:var(--muted)}
+    input{
+      width:100%;padding:12px;
+      border-radius:10px;border:1px solid rgba(255,255,255,0.05);
+      background:rgba(255,255,255,0.04);
+      color:#fff;outline:none;font-size:15px;
+    }
+    input:focus{border-color:var(--accent)}
+
+    .field{margin-bottom:18px}
+
+    button{
+      width:100%;padding:12px 0;border:none;
+      border-radius:10px;cursor:pointer;
+      background:linear-gradient(90deg,var(--accent),var(--accent2));
+      font-weight:700;font-size:16px;color:#04272f;
+      margin-top:6px;
+    }
+
+    .extra{
+      margin-top:20px;
+      text-align:center;font-size:14px;color:var(--muted);
+    }
+    .extra a{color:var(--accent);text-decoration:none}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="logo">KP</div>
+    <h2>Welcome Back</h2>
+    <p>Login to your admin dashboard</p>
+
+   <form id ="loginForm">
+								    <div class="field">
+        <label>Email</label>
+        <input type="text" id="username"  placeholder="Enter your UserName" required />
+      </div>
+
+      <div class="field">
+        <label>Password</label>
+        <input type="password" id="password"  placeholder="Enter password" required />
+      </div>
+
+      <button type="submit">Login</button>
+    </form>
+
+    <div class="extra">Forgot password? <a href="#">Click here</a></div>
+  </div>
+  <script>
+										document.getElementById("loginForm").addEventListener("submit", async function (e) {
+											e.preventDefault();
+
+											const username = document.getElementById("username").value;
+											const password = document.getElementById("password").value;
+
+											const data = { username: username, password: password };
+											//const data = await response.json();
+											console.log(data);
+											try {
+                                                const response = await fetch("https://localhost:7171/api/Staff/login", {
+													method: "POST",
+													headers: { "Content-Type": "application/json" },
+													body: JSON.stringify(data),
+												});
+
+												if (response.ok) {
+													const result = await response.json();
+													console.log(result);
+localStorage.setItem("loggedUser",result.staff.name);
+//localStorage.setItem("loggedUser",username);
+
+//console.log(name);
+													alert("✅ Login successful!");
+													
+													// Token ko localStorage me save kar lo (optional)
+													//localStorage.setItem("token", result.token);
+
+													
+													//localStorage.setItem("username",response.data.username)
+
+													// Dashboard page pe redirect
+										window.location.href = "index.html";
+												} else {
+													alert("❌ Invalid username or password");
+												}
+											} catch (error) {
+												console.error("Error:", error);
+												alert("Server error! Please check API.");
+											}
+										});
+									</script>
+
+
+</body>
+</html>

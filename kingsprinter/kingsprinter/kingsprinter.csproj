@@ -1,0 +1,110 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="EPPlus" Version="6.2.11" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="6.0.0" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="6.0.0">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Frontend\" />
+    <Folder Include="wwwroot\DieCutImages\" />
+    <Folder Include="wwwroot\Img\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\adminkit-main\adminkit-main\.babelrc" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\.eslintrc" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\.gitignore" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\.nvmrc" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\CHANGELOG.md" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\LICENSE" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\postcss.config.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\README.md" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\fonts\.gitkeep" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\avatars\avatar-2.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\avatars\avatar-3.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\avatars\avatar-4.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\avatars\avatar-5.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\avatars\avatar.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\icons\icon-48x48.png" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\photos\unsplash-1.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\photos\unsplash-2.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\img\photos\unsplash-3.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\app.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\bootstrap.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\chartjs.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\feather.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\flatpickr.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\sidebar.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\theme.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\vector-maps.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\js\modules\vector-maps\world.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\1-variables\_app.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\2-mixins\_button.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_avatar.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_buttons.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_card.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_chart.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_content.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_dropdown.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_feather.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_footer.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_hamburger.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_list-group.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_main.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_navbar.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_reboot.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_sidebar.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_sizing.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_stat.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_tables.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_type.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\3-components\_wrapper.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\4-utilities\_cursors.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\5-vendor\_flatpickr.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\5-vendor\_simplebar.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\src\scss\app.scss" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\charts-chartjs.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\css\app.css" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\css\app.css.map" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\fonts\.gitkeep" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\icons-feather.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\avatars\avatar-2.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\avatars\avatar-3.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\avatars\avatar-4.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\avatars\avatar-5.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\avatars\avatar.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\icons\icon-48x48.png" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\photos\unsplash-1.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\photos\unsplash-2.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\img\photos\unsplash-3.jpg" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\index.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\js\app.js" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\js\app.js.LICENSE.txt" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\js\app.js.map" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\maps-google.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\pages-blank.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\pages-profile.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\pages-sign-in.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\pages-sign-up.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\ui-buttons.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\ui-cards.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\ui-forms.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\ui-typography.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\static\upgrade-to-pro.html" />
+    <None Include="wwwroot\adminkit-main\adminkit-main\webpack.config.js" />
+  </ItemGroup>
+
+</Project>

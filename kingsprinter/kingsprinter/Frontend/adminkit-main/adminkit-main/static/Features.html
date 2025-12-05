@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/ui-forms.html" />
+
+	<title>Forms | AdminKit Demo</title>
+
+	<!-- <link href="css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"> -->
+
+	<script src="https://unpkg.com/feather-icons"></script>
+<link href=""></html>
+
+<link rel="stylesheet" href="css/custom.css">
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+<!-- SIDEBAR -->
+<!-- SIDEBAR -->
+<div id="sidebar"></div>
+
+
+<!-- HEADER -->
+<div id="header"></div>
+
+
+
+
+
+<main>
+
+  <h1>Add Subcategory Features</h1>
+
+  <div class="form-card">
+    <form id ="categoryForm" onsubmit="addCategory(event)">
+<div class="row">
+
+  <div class="form-group">
+      
+      <select id="categoryDropdown"  class="form-select mb-3">
+<option value="" style="color:black;" >Select SubCategory</option>
+</select>
+  </div>
+
+  <div class="form-group">
+     
+		<input type="text" id ="productioncode" placeholder="ProductCode">
+
+  </div>
+
+</div>
+
+
+<div class="row">
+
+  <div class="form-group">
+      <label>
+
+	  </label>
+    <select id="laminationDropdown"  class="form-select mb-3">
+<option value="" style="color:black;" >Select Lamination Type</option>
+<option value="1" style="color:black;" >Available</option>
+<option value="2" style="color:black;" >Not Available</option>
+</select>
+  </div>
+
+  <div class="form-group">
+      <label>
+		
+	  </label>
+     <select id="UVDropdown"  class="form-select mb-3">
+<option value="" style="color:black;" >Select UV Option</option>
+<option value="1" style="color:black;" >Available</option>
+<option value="2" style="color:black;" >Not Available</option>
+
+</select>
+  </div>
+
+
+</div>
+
+<div class="row">
+
+  <div class="form-group">
+     <label></label>
+     <select id="foilDropdown"  class="form-select mb-3" placeholder="Select Foil Options"> 
+<option value="" style="color:black;" >Select Foil Option</option>
+<option value="1" style="color:black;" >Available</option>
+<option value="2" style="color:black;" >Not Available</option>
+</select>
+  </div>
+
+  <div class="form-group">
+      <label>
+
+	  </label>
+     <select id="dieDropdown"  class="form-select mb-3">
+<option value="" style="color:black;" >Select Die Cut Option</option>
+<option value="1" style="color:black;" >Available</option>
+<option value="2" style="color:black;" >Not Available</option>
+</select>
+  </div>
+
+</div>
+
+<div class="row">
+
+  <div class="form-group">
+     
+    
+<input type="text"  id ="productitime" placeholder="Production Time">
+
+  </div>
+
+ 
+
+
+</div>
+
+
+         
+
+      <button type="submit">Save</button>
+
+    </form>
+  </div>
+
+
+
+
+<!-- ⭐ NEW TABLE ADDED BELOW FORM ⭐ -->
+<h1 style="margin-top:40px;">Add Subcategory Features List</h1>
+
+<div class="table-card">
+  <table>
+    <thead>
+      <tr>
+       <th>Sub Category</th>
+      <th>ProductCode</th>
+      <th>LaminationType</th>
+      <th>UVOption</th>
+      <th>FoilOption</th>
+      <th>DieCutOptionTypes</th>
+      <th>ProductionTime</th>
+        <th style="width:100px;">Action</th>
+      </tr>
+    </thead>
+
+    <tbody  id="categoryTableBody">
+      <tr>
+       
+        <td class="action-buttons">
+          <!-- <span class="edit-btn"><i data-feather="edit"></i></span>
+          <span class="delete-btn"><i data-feather="trash-2"></i></span> -->
+        </td>
+      </tr>
+
+      <tr>
+       
+       
+
+    </tbody>
+  </table>
+</div>
+
+  
+
+</main>
+
+
+<script>
+async function loadCategories() {
+    const response = await fetch("https://localhost:7171/api/Features/GetAllWithSubNames");
+    const data = await response.json();
+
+    const tableBody = document.getElementById("categoryTableBody");
+    tableBody.innerHTML = "";
+
+    data.forEach(cat => {
+        const row = `<tr>
+                        
+						<td>${cat.subCategory}</td>
+                        <td>${cat.productCode}</td>
+
+                        <td>${cat.laminationType}</td>
+                        <td>${cat.uvOption}</td>
+                        <td>${cat.foilOption}</td>
+
+                        <td>${cat.dieCutOption}</td>
+                        <td>${cat.productionTime}</td>
+
+
+                     </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+// Category add karne ke baad list refresh karo
+async function addCategory()
+ {
+        event.preventDefault();
+    const code = document.getElementById("productioncode").value;
+    const ptime = document.getElementById("productitime").value;
+
+           const  catid= (document.getElementById("categoryDropdown").value)
+          let  lid=(document.getElementById("laminationDropdown"))
+          let  uvid= document.getElementById("UVDropdown")
+          let  fid= (document.getElementById("foilDropdown"))
+          let  diecut= (document.getElementById("dieDropdown"))
+
+          let ltext=lid.options[lid.selectedIndex].text;
+          let uvtext=uvid.options[uvid.selectedIndex].text;
+          let ftext=fid.options[fid.selectedIndex].text;
+          let dietext=diecut.options[diecut.selectedIndex].text;
+
+    const response = await fetch("https://localhost:7171/api/Features", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ productCode:code,textureOption:code ,productionTime:ptime,laminationType:ltext,uvOption:uvtext,foilOption:ftext,dieCutOption:dietext,subCategoryId:catid })
+    });
+
+    if (response.ok) {
+        alert("Detail Added Successfully!");
+        loadCategories(); // ✅ yahan se list auto-refresh hogi
+    } else {
+        alert("Failed to Add Detail");
+    }
+}
+
+// Page load hone par sari category dikhao
+window.onload = loadCategories;
+</script>
+<script>
+async function loadDropdown(apiUrl, dropdownId, textField, valueField) {
+    const dropdown = document.getElementById(dropdownId);
+
+    // Clear previous options
+   // dropdown.innerHTML =  "<option value=''>--Select--</option>";
+
+    try {
+        const response = await fetch(apiUrl);
+        if (!response.ok) {
+            throw new Error("Failed to load data");
+        }
+
+        const data = await response.json();
+
+        // Add items to dropdown
+        data.forEach(item => {
+            const option = document.createElement("option");
+            option.value = item[valueField];
+            option.textContent = item[textField];
+            dropdown.appendChild(option);
+        });
+
+    } catch (error) {
+        console.error(`Dropdown load failed for ${dropdownId}: `, error);
+    }
+}
+document.addEventListener("DOMContentLoaded", function () {
+
+    // // Category
+    // loadDropdown(
+    //     "https://localhost:7171/api/Category",
+    //     "categoryDropdown",
+    //     "name",
+    //     "id"
+    // );
+
+    // Sub Category
+    loadDropdown(
+        "https://localhost:7171/api/SubCategory",
+        "categoryDropdown",
+        "name",
+        "id",
+		"Select Subcategory"
+    );
+
+    // Lamination Type
+    // loadDropdown(
+    //     "https://localhost:7171/api/LaminationType",
+    //     "laminationDropdown",
+    //     "laminationTypes",
+    //     "id"
+    // );
+
+    // // UV Option
+    // loadDropdown(
+    //     "https://localhost:7171/api/UVOption",
+    //     "UVDropdown",
+    //     "uvOptionTypes",
+    //     "id"
+    // );
+
+    // // Foil Color
+    // loadDropdown(
+    //     "https://localhost:7171/api/FoilOption",
+    //     "foilDropdown",
+    //     "foilOptionTypes",
+    //     "id"
+    // );
+
+    // // Die Cut Shape
+    // loadDropdown(
+    //     "https://localhost:7171/api/DieCutOptionTypes",
+    //     "dieDropdown",
+    //     "dieCutOptionTypes",
+    //     "id"
+    // );
+});
+
+
+
+</script>
+
+
+
+
+<script>
+
+// ACCORDION SUBMENU — only one open at a time
+function toggleMenu(id){
+    const allMenus = document.querySelectorAll(".submenu");
+
+    allMenus.forEach(menu => {
+        if(menu.id !== id){
+            menu.style.display = "none";
+        }
+    });
+
+    const current = document.getElementById(id);
+    current.style.display = current.style.display === "block" ? "none" : "block";
+}
+
+// Load icons
+feather.replace();
+
+</script>
+
+
+	<script src="js/app.js"></script>
+<script src="../static/common.js"></script>
+
+
+
+<script>
+  fetch("shared/commonheader.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("header").innerHTML = data;
+    });
+</script>
+
+<script>
+
+// ACCORDION SUBMENU — only one open at a time
+function toggleMenu(id){
+    const allMenus = document.querySelectorAll(".submenu");
+
+    allMenus.forEach(menu => {
+        if(menu.id !== id){
+            menu.style.display = "none";
+        }
+    });
+
+    const current = document.getElementById(id);
+    current.style.display = current.style.display === "block" ? "none" : "block";
+}
+
+// Load icons
+feather.replace();
+
+</script>
+
+<script>
+fetch("shared/sidebar.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("sidebar").innerHTML = data;
+    });
+</script>
+
+</body>
+
+</html>

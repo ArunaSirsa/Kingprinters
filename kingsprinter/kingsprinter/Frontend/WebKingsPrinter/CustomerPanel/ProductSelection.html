@@ -1,0 +1,724 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Printers Club - 3D Modern UI</title>
+  <style>
+    /* ---------- Basic ---------- */
+    :root{
+      --primary-1: #002b62;
+      --primary-2: #0056c7;
+      --accent: #0d47a1;
+      --nav-grad: linear-gradient(90deg,#005eff,#4fb5ff);
+      --bg: #eef1f5;
+      --muted: #6b7280;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, "Segoe UI", Roboto, Arial, sans-serif;
+      background:var(--bg);
+      color:#0f1724;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
+    a{color:inherit}
+
+    /* ---------- Header ---------- */
+    .header{
+      background: linear-gradient(135deg,var(--primary-1),var(--primary-2));
+      color:#fff;
+      padding:16px 20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      box-shadow:0 6px 18px rgba(2,6,23,0.25);
+    }
+    .brand{
+      display:flex;
+      align-items:center;
+      gap:12px;
+    }
+    .brand img{height:56px; width:auto; filter: drop-shadow(0 6px 12px rgba(0,0,0,0.35));}
+    .brand .title{font-size:20px; font-weight:700; letter-spacing:0.2px; text-shadow:1px 1px 6px rgba(0,0,0,0.3)}
+    .header-center { text-align:center; font-size:13px; line-height:1.2; }
+    .header-right { text-align:right; font-size:13px; line-height:1.2; }
+
+    /* subtle pill for "Go to All Services" */
+    .pill { display:inline-block; padding:6px 10px; border-radius:999px; background:rgba(255,235,59,0.12); color:#fff; font-weight:600; text-decoration:none; }
+
+    /* ---------- Nav ---------- */
+    nav.main-nav{
+      display:flex;
+      justify-content:center;
+      gap:28px;
+      align-items:center;
+      padding:12px 10px;
+      background:var(--nav-grad);
+      box-shadow:0 6px 18px rgba(2,6,23,0.12);
+      font-weight:700;
+      font-size:15px;
+    }
+    nav.main-nav a{ color:#fff; text-decoration:none; padding:6px 10px; border-radius:8px; transition:all .18s ease; }
+    nav.main-nav a.action{ background:var(--accent); box-shadow:0 8px 18px rgba(13,71,161,0.25); color:#fff; }
+    nav.main-nav a:hover{ opacity:0.92; transform:translateY(-1px); }
+
+    /* Dropdown base */
+    .dropdown{ position:relative; display:inline-block; }
+    .dropdown-menu{
+      display:none;
+      position:absolute;
+      top:calc(100% + 10px);
+      left:0;
+      min-width:200px;
+      background:#fff;
+      border-radius:12px;
+      box-shadow:0 16px 40px rgba(2,6,23,0.18);
+      padding:8px 0;
+      z-index:1200;
+      overflow:hidden;
+    }
+    .dropdown-menu a{
+      display:block;
+      padding:10px 16px;
+      text-decoration:none;
+     color:#000 !important; /* submenu text visible */
+      font-weight:600;
+      transition:background .12s;
+    }
+    .dropdown-menu a:hover{ background:#f3f8ff; }
+
+    /* ---------- Banner / Slider ---------- */
+    .banner{
+      position:relative;
+      height:260px;
+      overflow:hidden;
+      border-bottom-left-radius:14px;
+      border-bottom-right-radius:14px;
+      margin:18px 20px;
+      box-shadow: 0 18px 40px rgba(2,6,23,0.12), inset 0 -20px 60px rgba(0,0,0,0.06);
+      border:1px solid rgba(2,6,23,0.04);
+    }
+    .slide{
+      position:absolute; inset:0; background-position:center; background-size:cover; background-repeat:no-repeat;
+      opacity:0; transition:opacity .9s ease;
+    }
+    .slide.visible{ opacity:1; }
+    .banner-overlay{
+      position:absolute; inset:0; display:flex; align-items:center; justify-content:center; pointer-events:none;
+      background: linear-gradient(180deg, rgba(0,0,0,0.18), rgba(0,0,0,0.35));
+    }
+    .banner-text{
+      text-align:center; color:#fff; text-shadow:2px 6px 18px rgba(0,0,0,0.6);
+      pointer-events:auto;
+    }
+    .banner-text h1{ margin:0; font-size:36px; letter-spacing:0.2px; }
+    .banner-text p{ margin:8px 0 0; font-size:16px; opacity:0.95; }
+
+    /* tiny dots */
+    .slider-dots{
+      position:absolute; bottom:12px; left:50%; transform:translateX(-50%); display:flex; gap:8px; z-index:30;
+    }
+    .dot{ width:10px; height:10px; border-radius:999px; background:rgba(255,255,255,0.45); box-shadow:0 4px 10px rgba(0,0,0,0.3); cursor:pointer; }
+    .dot.active{ background:#fff; transform:scale(1.12); }
+
+    /* ---------- Services / Grid ---------- */
+    .section{
+      padding:28px 20px;
+      max-width:1200px;
+      margin:0 auto 28px;
+    }
+    .section h2{
+      font-size:28px; margin:0 0 18px; text-align:center; text-shadow:1px 2px 8px rgba(2,6,23,0.08);
+    }
+    .grid{
+display:grid;
+grid-template-columns: repeat(7, 1fr);
+gap:22px;
+}
+    .card{
+      background:#fff;
+      border-radius:16px;
+      padding:16px;
+      box-shadow: 0 16px 30px rgba(2,6,23,0.10);
+      transition: transform .25s cubic-bezier(.2,.9,.2,1), box-shadow .25s;
+      border:1px solid rgba(2,6,23,0.03);
+    }
+    .card:hover{ transform:translateY(-10px); box-shadow: 0 28px 60px rgba(2,6,23,0.16); }
+    .card img{ width:100%; height:100px; object-fit:cover; border-radius:10px; box-shadow: 0 8px 20px rgba(2,6,23,0.12); }
+    .card .card-title{ margin-top:12px; font-size:16px; font-weight:700; }
+    .card .card-sub{ margin-top:6px; font-size:13px; color:var(--muted); }
+
+    /* ---------- Footer ---------- */
+    footer.site-footer{
+      padding:18px 20px;
+      text-align:center;
+      color:var(--muted);
+      font-size:13px;
+      border-top:1px solid rgba(2,6,23,0.04);
+      margin-top:30px;
+      background:transparent;
+    }
+
+    /* ---------- Responsive ---------- */
+    @media (max-width:900px){
+      .banner-text h1{ font-size:30px; }
+    }
+    @media (max-width:640px){
+      .header{ flex-direction:column; align-items:flex-start; gap:12px; padding:12px; }
+      .header-center{ order:3; width:100%; text-align:left; }
+      .header-right{ text-align:left; order:2; width:100%; }
+      nav.main-nav{ gap:12px; padding:10px; font-size:14px; overflow-x:auto; -webkit-overflow-scrolling:touch; }
+      .banner{ margin:12px; height:210px; }
+      .card img{ height:110px; }
+      .section{ padding:18px 12px; }
+    }
+
+
+    /* Responsive for tablets */
+@media(max-width:1100px){
+.grid{ grid-template-columns: repeat(4, 1fr); }
+}
+
+
+/* Mobile responsive */
+@media(max-width:640px){
+.grid{ grid-template-columns: repeat(2, 1fr); }
+.card img{ height:110px; }
+}
+  </style>
+
+
+<style>
+  /* Hide desktop nav in mobile */
+@media(max-width:640px){
+  nav.main-nav{
+    display:none;
+  }
+}
+
+</style>
+
+
+<style>
+ /* MOBILE NAVBAR */
+.mobile-header{
+  display:none;
+}
+
+@media(max-width:640px){
+
+  /* Top bar */
+  .mobile-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:14px 16px;
+    background:var(--nav-grad);
+    color:#fff;
+    font-size:18px;
+    font-weight:700;
+    box-shadow:0 4px 12px rgba(0,0,0,0.15);
+    position:relative;
+    z-index:2000;
+  }
+
+  .hamburger{
+    font-size:28px;
+    cursor:pointer;
+    user-select:none;
+  }
+
+  /* Drawer menu */
+  .mobile-menu{
+    position:fixed;
+    top:0;
+    right:-260px; /* hidden */
+    width:260px;
+    height:100%;
+    background:#fff;
+    box-shadow:-4px 0 20px rgba(0,0,0,0.2);
+    transition:right .35s ease;
+    z-index:3000;
+    display:flex;
+    flex-direction:column;
+  }
+
+  .mobile-menu-inner{
+    padding:16px 0;
+    overflow-y:auto;
+  }
+
+  .mobile-menu a{
+    display:block;
+    padding:14px 18px;
+    color:#000;
+    text-decoration:none;
+    font-weight:600;
+    border-bottom:1px solid #f3f3f3;
+  }
+
+  .mobile-menu a:hover{
+    background:#f3f8ff;
+  }
+
+  /* Dropdown */
+  .mobile-dropdown-title{
+    padding:14px 18px;
+    font-weight:700;
+    background:#fafafa;
+    border-bottom:1px solid #eee;
+    cursor:pointer;
+  }
+
+  .mobile-submenu{
+    display:none;
+    background:#fff;
+  }
+
+  .mobile-submenu a{
+    padding-left:32px;
+    font-size:14px;
+  }
+
+  /* Mobile menu only for screens below 768px */
+.mobile-menu {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-menu {
+        display: block;
+    }
+}
+.menu-icon {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .menu-icon {
+        display: block;
+    }
+}
+}
+</style>
+
+<style>
+  /* ---- FINAL FIX ---- */
+
+/* Desktop view → Mobile menu & hamburger hidden */
+@media (min-width: 641px){
+    .mobile-header{
+        display: none !important;
+    }
+    .mobile-menu{
+        display: none !important;
+    }
+}
+
+/* Mobile view → Show mobile menu system */
+@media (max-width: 640px){
+    .mobile-header{
+        display: flex !important;
+    }
+    .mobile-menu{
+        display: flex !important;
+        right: -260px; /* closed default */
+    }
+}
+
+</style>
+
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="brand">
+      <!-- Replace the src with your real logo path -->
+      <img src="logo/logo.svg" alt="Logo" onerror="this.style.display='none'">
+      <!-- <div class="title">Printers Club</div> -->
+    </div>
+
+    <div class="header-center">
+      <div style="font-weight:700">Printing Services Division</div>
+      <div style="font-size:13px; margin-top:6px;">
+        <a class="pill" href="#">Go to All Services</a>
+      </div>
+      <div style="margin-top:6px; font-size:13px; color:rgba(255,255,255,0.95);">
+        Printers Registered (India): <strong>39988</strong> &nbsp; | &nbsp;
+        Outside India: <strong>0</strong>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <div style="font-weight:700">Hi, Mr(s) Mahaveer Iaddha</div>
+      <div style="font-size:13px; margin-top:6px;">Member ID - 3357</div>
+      <div style="font-size:13px; margin-top:4px;">A/C Balance: <strong>0.00</strong></div>
+      <div style="margin-top:6px;"><a href="#" style="color:#fff; text-decoration:underline;">Sign Out</a></div>
+    </div>
+  </header>
+<!-- MOBILE NAVBAR -->
+<div class="mobile-header">
+  <div class="mobile-brand">Printers Club</div>
+
+  <div class="hamburger" id="hamburgerBtn">
+    &#9776;
+  </div>
+</div>
+
+<!-- RIGHT-SIDE DRAWER MENU -->
+<div class="mobile-menu" id="mobileMenu">
+  <div class="mobile-menu-inner">
+
+    <a href="#">Home</a>
+
+    <!-- SETTINGS DROPDOWN -->
+    <div class="mobile-dropdown">
+      <div class="mobile-dropdown-title">Settings ▾</div>
+      <div class="mobile-submenu">
+        <a href="#">Profile Settings</a>
+        <a href="#">GST Settings</a>
+        <a href="#">Bank Setup</a>
+        <a href="#">Pricing Setup</a>
+      </div>
+    </div>
+
+    <a href="#">Add Money</a>
+    <a href="#">Add Order</a>
+
+    <!-- ORDER STATUS -->
+    <div class="mobile-dropdown">
+      <div class="mobile-dropdown-title">Order Status ▾</div>
+      <div class="mobile-submenu">
+        <a href="#">Pending Orders</a>
+        <a href="#">Completed</a>
+        <a href="#">Cancelled</a>
+      </div>
+    </div>
+
+    <!-- REPORTS -->
+    <div class="mobile-dropdown">
+      <div class="mobile-dropdown-title">Reports ▾</div>
+      <div class="mobile-submenu">
+        <a href="#">Daily Report</a>
+        <a href="#">Monthly Report</a>
+        <a href="#">Payment Report</a>
+      </div>
+    </div>
+
+    <!-- SUPPORT -->
+    <div class="mobile-dropdown">
+      <div class="mobile-dropdown-title">Support ▾</div>
+      <div class="mobile-submenu">
+        <a href="#">Help Desk</a>
+        <a href="#">Raise Ticket</a>
+        <a href="#">Live Chat</a>
+      </div>
+    </div>
+
+    <a href="#" style="color:red;font-weight:700;">Logout</a>
+
+  </div>
+</div>
+
+
+
+
+  <!-- NAVBAR -->
+  <nav class="main-nav" aria-label="Main Navigation">
+    <a href="#">Home</a>
+
+    <div class="dropdown" tabindex="0">
+      <a href="#" aria-haspopup="true" aria-expanded="false">Settings ▾</a>
+      <div class="dropdown-menu" role="menu" aria-hidden="true">
+        <a href="#">Profile Settings</a>
+        <a href="#">GST Settings</a>
+        <a href="#">Bank Setup</a>
+        <a href="#">Pricing Setup</a>
+      </div>
+    </div>
+
+    <a href="#">Add Money</a>
+    <a class="action" href="#">Add Order</a>
+
+    <div class="dropdown" tabindex="0">
+      <a href="#">Order Status ▾</a>
+      <div class="dropdown-menu" role="menu" aria-hidden="true">
+        <a href="#">Pending Orders</a>
+        <a href="#">Completed Orders</a>
+        <a href="#">Cancelled Orders</a>
+      </div>
+    </div>
+
+    <div class="dropdown" tabindex="0">
+      <a href="#">Reports ▾</a>
+      <div class="dropdown-menu" role="menu" aria-hidden="true">
+        <a href="#">Daily Report</a>
+        <a href="#">Monthly Report</a>
+        <a href="#">Payment Report</a>
+      </div>
+    </div>
+
+    <div class="dropdown" tabindex="0">
+      <a href="#">Support ▾</a>
+      <div class="dropdown-menu" role="menu" aria-hidden="true">
+        <a href="#">Help Desk</a>
+        <a href="#">Raise Ticket</a>
+        <a href="#">Live Chat</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- BANNER / SLIDER -->
+  <section class="banner" aria-label="Hero Banner">
+    <div class="slide visible" style="background-image:url('https://images.unsplash.com/photo-1522199755839-a2bacb67c546?q=80&w=1600&auto=format&fit=crop');"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1545235617-9465d2a55698?q=80&w=1600&auto=format&fit=crop');"></div>
+    <div class="slide" style="background-image:url('https://images.unsplash.com/photo-1509021436665-8f07dbf5bf1d?q=80&w=1600&auto=format&fit=crop');"></div>
+
+    <div class="banner-overlay">
+      <div class="banner-text">
+        <h1>Premium 180 Micron NT / PVC</h1>
+        <p>Upgrade Your Cards With Modern 3D Designs</p>
+      </div>
+    </div>
+
+    <div class="slider-dots" aria-hidden="false">
+      <div class="dot active" data-index="0"></div>
+      <div class="dot" data-index="1"></div>
+      <div class="dot" data-index="2"></div>
+    </div>
+  </section>
+
+  <!-- PRINTING SERVICES -->
+  <section class="section" aria-labelledby="services-heading">
+    <h2 id="services-heading">LIST OF PRINTING SERVICES</h2>
+
+    <div class="grid">
+      <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+     <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+      <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+     <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+           <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+           <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+           <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+          <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+          <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAW MATERIALS -->
+  <section class="section" aria-labelledby="materials-heading" style="padding-top:6px;">
+    <h2 id="materials-heading">List of Raw Materials</h2>
+
+    <div class="grid">
+      <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+     <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+     <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+
+       <div class="card">
+        <a href="SubcategorySelection.html">
+        <img src="https://images.unsplash.com/photo-1585386959984-a4155224a1ad?q=80&w=1200&auto=format&fit=crop" alt="Visiting Cards">
+        <div class="card-title">Visiting Cards</div>
+        <!-- <div class="card-sub">Foil, Emboss, 3D finish</div> -->
+         </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="site-footer">
+    © <span id="year"></span> Printers Club • All rights reserved • Designed with 3D modern UI
+  </footer>
+
+  <!-- ---------- Scripts ---------- -->
+  <script>
+    // Dropdown toggle (works on click and keyboard)
+    document.querySelectorAll('.dropdown').forEach(drop => {
+      const trigger = drop.querySelector('a');
+      const menu = drop.querySelector('.dropdown-menu');
+      trigger.addEventListener('click', function(e){
+        e.preventDefault();
+        const open = menu.style.display === 'block';
+        // close all
+        document.querySelectorAll('.dropdown-menu').forEach(m=>m.style.display='none');
+        document.querySelectorAll('.dropdown a[aria-expanded]').forEach(t=>t.setAttribute('aria-expanded','false'));
+        if(!open){
+          menu.style.display='block';
+          trigger.setAttribute('aria-expanded','true');
+          menu.setAttribute('aria-hidden','false');
+        } else {
+          menu.style.display='none';
+          trigger.setAttribute('aria-expanded','false');
+          menu.setAttribute('aria-hidden','true');
+        }
+      });
+
+      // close if clicked outside
+      document.addEventListener('click', (ev)=>{
+        if(!drop.contains(ev.target)){
+          menu.style.display='none';
+          trigger.setAttribute('aria-expanded','false');
+          menu.setAttribute('aria-hidden','true');
+        }
+      });
+
+      // keyboard accessibility
+      drop.addEventListener('keydown', function(e){
+        if(e.key === 'Escape'){ menu.style.display='none'; trigger.setAttribute('aria-expanded','false'); }
+        if(e.key === 'Enter'){ trigger.click(); }
+      });
+    });
+
+    // Simple slider logic (auto + dots)
+    (function(){
+      const slides = Array.from(document.querySelectorAll('.banner .slide'));
+      const dots = Array.from(document.querySelectorAll('.dot'));
+      let idx = 0;
+      let timer = null;
+
+      function show(i){
+        slides.forEach((s,si)=> s.classList.toggle('visible', si===i));
+        dots.forEach((d,di)=> d.classList.toggle('active', di===i));
+        idx = i;
+      }
+
+      function next(){
+        show((idx+1) % slides.length);
+      }
+
+      // auto play
+      timer = setInterval(next, 4500);
+
+      // dot clicks
+      dots.forEach(d=>{
+        d.addEventListener('click', ()=> {
+          clearInterval(timer);
+          show(parseInt(d.dataset.index,10));
+          timer = setInterval(next,4500);
+        });
+      });
+
+      // pause on hover
+      const banner = document.querySelector('.banner');
+      banner.addEventListener('mouseenter', ()=> clearInterval(timer));
+      banner.addEventListener('mouseleave', ()=> timer = setInterval(next,4500));
+    })();
+
+    // set footer year
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+
+
+<script>
+  // RIGHT SIDE DRAWER MENU
+const ham = document.getElementById('hamburgerBtn');
+const menu = document.getElementById('mobileMenu');
+
+ham.addEventListener('click', ()=>{
+  menu.style.right = (menu.style.right === "0px") ? "-260px" : "0px";
+});
+
+// Close drawer on outside click
+document.addEventListener("click", function(e){
+  if(!menu.contains(e.target) && !ham.contains(e.target)){
+    menu.style.right = "-260px";
+  }
+});
+
+// DROPDOWN SUB MENU
+document.querySelectorAll(".mobile-dropdown-title").forEach(title=>{
+  title.addEventListener("click", ()=>{
+    const submenu = title.nextElementSibling;
+    submenu.style.display = submenu.style.display === "block" ? "none" : "block";
+  });
+});
+
+
+</script>
+</body>
+</html>

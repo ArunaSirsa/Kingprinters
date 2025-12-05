@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="description" content="Responsive Admin &amp; Dashboard Template based on Bootstrap 5">
+	<meta name="author" content="AdminKit">
+	<meta name="keywords" content="adminkit, bootstrap, bootstrap 5, admin, dashboard, template, responsive, css, sass, html, theme, front-end, ui kit, web">
+
+	<link rel="preconnect" href="https://fonts.gstatic.com">
+	<link rel="shortcut icon" href="img/icons/icon-48x48.png" />
+
+	<link rel="canonical" href="https://demo-basic.adminkit.io/ui-forms.html" />
+
+	<title>Forms | AdminKit Demo</title>
+
+	<!-- <link href="css/app.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet"> -->
+
+
+<!-- Feather Icons -->
+<script src="https://unpkg.com/feather-icons"></script>
+
+<style>
+:root{
+  --sidebar:#000000;
+  --sidebar-light:#161b22;
+  --text:#e6edf3;
+  --primary:#ef4444;
+  --primary-light:#f87171;
+  --radius:12px;
+  font-family:Inter, system-ui;
+}
+
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+  background:#f8fafc;
+  /* display:flex; */
+  min-height:100vh;
+  color:#111827;
+}
+
+/* SIDEBAR */
+.sidebar{
+  width:230px;
+  background:var(--sidebar);
+  color:var(--text);
+  padding:22px 16px;
+  display:flex;
+  flex-direction:column;
+  gap:16px;
+  position:fixed;
+  height:100vh;
+  overflow-y:auto;
+  scrollbar-width:thin;
+  border-right:1px solid #1f2937;
+}
+
+.brand{
+  font-size:22px;
+  font-weight:700;
+  text-align:center;
+  margin-bottom:16px;
+  color:var(--primary-light);
+}
+
+.menu-item{
+  padding:12px 12px;
+  background:#111;
+  border-radius:var(--radius);
+  cursor:pointer;
+  color:#cbd5e1;
+  font-size:15px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  border:1px solid #ef4444;
+  transition:0.2s;
+}
+
+.menu-item:hover{background:#ef4444;color:white;}
+.active{background:#ef4444;color:white;font-weight:700;}
+
+.menu-left{
+  display:flex;
+  align-items:center;
+  gap:10px;
+}
+
+.menu-left i{
+  width:18px;
+  height:18px;
+  stroke-width:2;
+}
+
+/* SUBMENU */
+.submenu{
+  display:none;
+  margin-left:14px;
+}
+.submenu div{
+  padding:8px 10px;
+  margin-top:4px;
+  color:#d4d7dd;
+  border-radius:8px;
+  cursor:pointer;
+  font-size:14px;
+}
+.submenu div:hover{
+  background:#1f2937;
+  color:var(--primary-light);
+}
+
+/* HEADER */
+header{
+  margin-left:230px;
+  width:calc(100% - 230px);
+  background:white;
+  padding:16px 24px;
+  box-shadow:0 2px 4px rgba(0,0,0,0.05);
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  position:fixed;
+  top:0;
+  z-index:20;
+}
+
+.badge{
+  position:absolute;
+  top:-6px;
+  right:-10px;
+  background:#ef4444;
+  color:white;
+  font-size:10px;
+  padding:2px 6px;
+  border-radius:50%;
+}
+
+/* MAIN */
+main{
+  margin-left:230px;
+  /* padding:110px 40px 30px;  */
+
+   padding:110px 40px 30px; 
+}
+
+h1{font-size:26px;margin-bottom:20px;color:#111827}
+
+/* .grid{
+  display:grid;
+  grid-template-columns:repeat(12,1fr);
+  gap:20px;
+} */
+.col-3{grid-column:span 3}
+.col-6{grid-column:span 6}
+
+.card{
+  background:white;
+  padding:20px;
+  border-radius:var(--radius);
+  border:1px solid #e5e7eb;
+  box-shadow:0 2px 8px rgba(0,0,0,0.06);
+}
+.card h3{margin-bottom:8px;color:#0f172a}
+.card p{font-size:22px;font-weight:700;color:#334155}
+
+button{
+  background:var(--primary);
+  color:white;
+  padding:12px 16px;
+  border:none;
+  border-radius:10px;
+  margin-top:10px;
+  cursor:pointer;
+  font-size:15px;
+  font-weight:600;
+}
+button:hover{background:var(--primary-light);}
+
+input{
+  width:100%;
+  padding:10px;
+  border:1px solid #d1d5db;
+  border-radius:8px;
+  margin-bottom:10px;
+  font-size:14px;
+}
+</style>
+
+<style>
+    /* Two column row */
+.row{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:20px;
+}
+
+.form-card{
+  background:white;
+  padding:30px;
+  width:100%;
+  border-radius:16px;
+  border:1px solid #e5e7eb;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+
+.form-group{
+  display:flex;
+  flex-direction:column;
+}
+
+.form-group label{
+  font-size:14px;
+  font-weight:600;
+  margin-bottom:6px;
+  color:#374151;
+}
+
+.form-group input{
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:14px;
+  transition:0.2s;
+  background:#f9fafb;
+}
+
+.form-group input:focus{
+  border-color:#ef4444;
+  outline:none;
+  box-shadow:0 0 0 3px rgba(239,68,68,0.2);
+}
+
+form button{
+  width:100%;
+  margin-top:16px;
+  padding:14px;
+  background:#ef4444;
+  color:white;
+  font-size:16px;
+  font-weight:600;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  transition:0.2s;
+}
+
+form button:hover{
+  background:#f87171;
+}
+
+/* Mobile responsive */
+@media(max-width:768px){
+  .row{
+    grid-template-columns:1fr;
+  }
+}
+
+.table-card{
+  background:white;
+  padding:20px;
+  border-radius:12px;
+  border:1px solid #e5e7eb;
+  margin-top:20px;
+  box-shadow:0 3px 10px rgba(0,0,0,0.08);
+}
+
+table{
+  width:100%;
+  border-collapse:collapse;
+  font-size:15px;
+}
+
+table thead{
+  background:#ef4444;
+  color:white;
+}
+
+table th, table td{
+  padding:12px 10px;
+  border-bottom:1px solid #e5e7eb;
+  text-align:left;
+}
+
+table tbody tr:hover{
+  background:#f9fafb;
+}
+
+.action-buttons{
+  display:flex;
+  gap:12px;
+}
+
+.action-buttons span{
+  cursor:pointer;
+  padding:6px;
+  border-radius:8px;
+  transition:0.2s;
+}
+
+.edit-btn:hover{
+  background:#dbeafe;   /* Light Blue */
+  color:#1d4ed8;
+}
+
+.delete-btn:hover{
+  background:#fee2e2;  /* Light Red */
+  color:#dc2626;
+}
+
+.action-buttons i{
+  width:18px;
+  height:18px;
+}
+.form-group select{
+  padding:12px;
+  border:1px solid #d1d5db;
+  border-radius:10px;
+  font-size:14px;
+  transition:0.2s;
+  background:#f9fafb;
+}
+
+</style>
+
+
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+<!-- SIDEBAR -->
+<div class="sidebar">
+  <div class="brand">Kings Printer</div>
+
+  <div class="menu-item active">
+    <div class="menu-left"><i data-feather="home"></i> Dashboard</div>
+  </div>
+
+  <div class="menu-item">
+    <div class="menu-left"><i data-feather="users"></i> Staff</div>
+  </div>
+
+   <div class="menu-item">
+    <div class="menu-left"><i data-feather="log-in"></i> Sign In</div>
+  </div>
+
+   <div class="menu-item">
+    <div class="menu-left"><i data-feather="map"></i> State</div>
+  </div>
+
+  <!-- <div class="menu-item">
+    <div class="menu-left"><i data-feather="box"></i> Item</div>
+  </div> -->
+
+  <!-- <div class="menu-item" onclick="toggleMenu('products')">
+    <div class="menu-left"><i data-feather="package"></i> Products</div>
+    <span>▼</span>
+  </div>
+  <div class="submenu" id="products">
+    <div>All Products</div>
+    <div>Add Product</div>
+    <div>Categories</div>
+  </div> -->
+
+  <div class="menu-item" onclick="toggleMenu('orders')">
+    <div class="menu-left"><i data-feather="file-text"></i> Orders</div>
+    <span>▼</span>
+  </div>
+  <div class="submenu" id="orders">
+	<div>Item</div>
+    <div>Category</div>
+    <div>SubCategory</div>
+    <div>Size</div>
+	<div>Features</div>
+	
+  </div>
+  <div class="menu-item">
+    <div class="menu-left"><i data-feather="truck"></i> Courier</div>
+  </div> 
+
+<div class="menu-item">
+    <div class="menu-left"><i data-feather="file-text"></i> Product Excel</div>
+  </div>
+
+  <!-- <div class="menu-item" onclick="toggleMenu('users')">
+    <div class="menu-left"><i data-feather="users"></i> Users</div>
+    <span>▼</span>
+  </div>
+  <div class="submenu" id="users">
+    <div>All Users</div>
+    <div>Add User</div>
+    <div>User Roles</div>
+  </div> -->
+
+  <!-- <div class="menu-item">
+    <div class="menu-left"><i data-feather="settings"></i> Settings</div>
+  </div> -->
+
+  <div class="menu-item">
+    <div class="menu-left"><i data-feather="lock"></i> Logout</div>
+  </div>
+</div>
+
+
+<!-- HEADER -->
+<header>
+  <div style="display:flex;align-items:center;gap:16px;width:100%">
+    <div style="font-weight:700;font-size:20px;color:#ef4444;">Kings Printer</div>
+    <input type="text" placeholder="Search..."
+      style="padding:10px 14px;border:1px solid #d1d5db;border-radius:8px;width:320px;font-size:14px;" />
+  </div>
+
+  <div style="display:flex;align-items:center;gap:18px;font-size:18px;color:#374151;">
+    <span style="cursor:pointer;"><i data-feather="maximize-2"></i></span>
+    <span style="cursor:pointer;"><i data-feather="moon"></i></span>
+
+    <span style="position:relative;cursor:pointer;">
+      <i data-feather="bell"></i>
+      <span class="badge">7</span>
+    </span>
+
+    <span style="position:relative;cursor:pointer;">
+      <i data-feather="message-circle"></i>
+      <span class="badge">5</span>
+    </span>
+
+    <div style="display:flex;align-items:center;gap:8px;">
+      <img src="https://i.pravatar.cc/40"
+           style="width:36px;height:36px;border-radius:50%;object-fit:cover" />
+      <div style="font-size:14px;line-height:16px;">
+        <div style="font-weight:600;color:#111827;">Saurabh</div>
+        <div style="font-size:12px;color:#6b7280;">Admin</div>
+      </div>
+    </div>
+  </div>
+</header>
+
+
+
+
+
+<main>
+
+  <h1>Add City</h1>
+
+  <div class="form-card">
+    <form id ="stateForm" onsubmit="addstate(event)">
+
+       <div class="row">
+        <div class="form-group">
+          <label>Select State </label>
+         <select id="categoryDropdown">
+<option value="" style="color:black;" >Select State</option>
+</select>
+        </div>
+
+        <div class="form-group">
+          <label>City</label>
+          <input type="text" id ="name" placeholder="Enter City">
+        </div>
+      </div>
+        <!-- <div class="form-group">
+          <label>State</label>
+          <input type="text" id="name" placeholder="Enter State">
+        </div> -->
+
+
+         
+
+      <button type="submit">Save</button>
+
+    </form>
+  </div>
+
+<!-- ⭐ NEW TABLE ADDED BELOW FORM ⭐ -->
+<h1 style="margin-top:40px;">State List</h1>
+
+<div class="table-card">
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+       <th>State Name</th>
+       <th>City Name</th>
+
+        <th style="width:100px;">Action</th>
+      </tr>
+    </thead>
+
+    <tbody id="stateTableBody">
+      <tr>
+       
+        <td class="action-buttons">
+          <!-- <span class="edit-btn"><i data-feather="edit"></i></span>
+          <span class="delete-btn"><i data-feather="trash-2"></i></span> -->
+        </td>
+      </tr>
+
+      <tr>
+       
+       
+
+    </tbody>
+  </table>
+</div>
+
+  
+
+</main>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<!-- <div class="wrapper">
+		
+
+		<div class="main">
+			
+
+			<main class="content">
+				<div class="container-fluid p-0">
+
+					<div class="mb-3">
+						<h1 class="h3 d-inline align-middle">Add State</h1>
+	
+					</div>
+					<div class="row">
+						<div class="col-12 col-lg-6">
+							<div class="card">
+								<div class="card-header">
+									<h5 class="card-title mb-0">State</h5>
+								</div>
+
+								<form id ="stateForm" onsubmit="addstate(event)">
+
+								<div class="card-body">
+									<input type="text" class="form-control" id ="name" placeholder="State">
+								</div>
+								<div class="card-body">
+						<button  class="btn btn-lg btn-primary"  type="submit">Save</button>
+								</div>
+								
+							</div>
+
+						
+</form>
+							<div class="card">
+						
+							</div>
+
+							<div class="card">
+						<table border="1"       class="table table-bordered table-striped table-hover text-center align-middle">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>State Name</th>
+    </tr>
+  </thead>
+  <tbody id="stateTableBody"></tbody>
+</table>
+							</div>
+							
+						</div>
+
+					</div>
+
+				</div>
+			</main>
+
+			
+		</div>
+	</div> -->
+
+
+
+
+
+<script>
+async function loadstate() {
+	
+    const response = await fetch("https://localhost:7171/api/State/GetAll");
+    const data = await response.json();
+data.sort((a, b) => a.id - b.id); // ascending order
+    const tableBody = document.getElementById("stateTableBody");
+    tableBody.innerHTML = "";
+
+    data.forEach(cat => {
+        const row = `<tr>
+                        <td>${cat.id}</td>
+                        <td>${cat.name}</td>
+                        <td>${cat.city}</td>
+                     </tr>`;
+        tableBody.innerHTML += row;
+    });
+}
+
+// Category add karne ke baad list refresh karo
+async function addstate() {
+	event.preventDefault();
+    const name = document.getElementById("name").value;
+   // const stateid = document.getElementById("categoryDropdown").value;
+          const  stateid= parseInt(document.getElementById("categoryDropdown").value)
+
+    const response = await fetch("https://localhost:7171/api/State/CreateCity", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ city: name,stateid:stateid  })
+    });
+
+    if (response.ok) {
+        alert("City added successfully!");
+        loadstate(); // ✅ yahan se list auto-refresh hogi
+    } else {
+        alert("Failed to add City");
+    }
+}
+
+// Page load hone par sari category dikhao
+window.onload = loadstate;
+</script>
+
+	<script src="js/app.js"></script>
+<script src="../static/common.js"></script>
+</body>
+<script>
+document.addEventListener("DOMContentLoaded", async function () {
+    const dropdown = document.getElementById("categoryDropdown");
+
+    try {
+        const response = await fetch("https://localhost:7171/api/State"); // 👈 apna backend URL
+        if (!response.ok) {
+            throw new Error("Failed to load categories");
+        }
+
+        const categories = await response.json();
+
+        // Dropdown me add karo
+        categories.forEach(cat => {
+            const option = document.createElement("option");
+            option.value = cat.id;
+            option.textContent = cat.name;
+            dropdown.appendChild(option);
+        });
+    } catch (error) {
+        console.error("Error fetching categories:", error);
+    }
+});
+</script>
+
+
+<script>
+
+// ACCORDION SUBMENU — only one open at a time
+function toggleMenu(id){
+    const allMenus = document.querySelectorAll(".submenu");
+
+    allMenus.forEach(menu => {
+        if(menu.id !== id){
+            menu.style.display = "none";
+        }
+    });
+
+    const current = document.getElementById(id);
+    current.style.display = current.style.display === "block" ? "none" : "block";
+}
+
+// Load icons
+feather.replace();
+
+</script>
+
+
+</html>

@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Kings Printer Dashboard</title>
+
+<!-- Feather Icons -->
+<script src="https://unpkg.com/feather-icons"></script>
+<link rel="stylesheet" href="css/custom.css">
+
+</head>
+
+<body>
+
+<!-- SIDEBAR -->
+ <div id="sidebar"></div>
+
+
+
+<!-- HEADER -->
+
+
+  
+<div id="header"></div>
+
+<!-- MAIN CONTENT -->
+<main>
+  <h1>Overview</h1>
+  <div class="grid">
+
+    <div class="col-3 card"><h3>Total Orders</h3><p>1,240</p></div>
+    <div class="col-3 card"><h3>Total Users</h3><p>520</p></div>
+    <div class="col-3 card"><h3>Revenue</h3><p>₹ 45,320</p></div>
+    <div class="col-3 card"><h3>Pending Orders</h3><p>26</p></div>
+
+    <div class="col-6 card">
+      <h3>Recent Orders</h3>
+      <table style="width:100%;margin-top:14px;border-collapse:collapse;font-size:14px">
+        <tr style="background:#f4f4f4">
+          <th style="padding:10px;text-align:left">Order</th>
+          <th>User</th>
+          <th>Amount</th>
+          <th>Status</th>
+        </tr>
+        <tr><td style="padding:10px">#3012</td><td>Neha</td><td>₹720</td><td>Processing</td></tr>
+        <tr><td style="padding:10px">#3011</td><td>Raj</td><td>₹1020</td><td>Delivered</td></tr>
+        <tr><td style="padding:10px">#3010</td><td>Asha</td><td>₹350</td><td>Cancelled</td></tr>
+      </table>
+    </div>
+
+    <!-- <div class="col-6 card">
+      <h3>Add New Product</h3>
+      <input placeholder="Product Name" />
+      <input placeholder="Price" />
+      <button>Add Product</button>
+    </div> -->
+
+  </div>
+</main>
+<!-- <script>
+		document.addEventListener("DOMContentLoaded", function() {
+			   let name = localStorage.getItem("loggedUser");
+    document.getElementById("userName").textContent = name;
+	console.log(name);
+});	
+		
+	</script> -->
+<script src="../static/common.js"></script>
+<script>
+
+// ACCORDION SUBMENU — only one open at a time
+function toggleMenu(id){
+    const allMenus = document.querySelectorAll(".submenu");
+
+    allMenus.forEach(menu => {
+        if(menu.id !== id){
+            menu.style.display = "none";
+        }
+    });
+
+    const current = document.getElementById(id);
+    current.style.display = current.style.display === "block" ? "none" : "block";
+}
+
+// Load icons
+feather.replace();
+
+</script>
+<script>
+  fetch("shared/commonheader.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("header").innerHTML = data;
+    });
+</script>
+<div id="sidebar"></div>
+
+<script>
+fetch("shared/sidebar.html")
+    .then(res => res.text())
+    .then(data => {
+        document.getElementById("sidebar").innerHTML = data;
+    });
+</script>
+</body>
+</html>
